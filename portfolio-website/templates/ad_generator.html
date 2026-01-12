@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Copy Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .loading { display: none; }
+        .loading.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    
+    <nav class="gradient-bg p-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">← Back</a>
+            <h1 class="text-2xl font-bold">Ad Copy Generator</h1>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto p-8">
+        
+        <div class="bg-gray-800 rounded-2xl p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Generate AI-Powered Ad Copy</h2>
+            
+            <form id="adForm" class="space-y-6">
+                <div>
+                    <label class="block text-lg mb-2">Business Type</label>
+                    <input type="text" name="business" required 
+                           class="w-full bg-gray-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-600 outline-none"
+                           placeholder="e.g., Coffee Shop, Gym, Restaurant">
+                </div>
+                
+                <div>
+                    <label class="block text-lg mb-2">Location</label>
+                    <input type="text" name="location" required 
+                           class="w-full bg-gray-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-600 outline-none"
+                           placeholder="e.g., Andheri Mumbai, MG Road Bangalore">
+                </div>
+                
+                <div>
+                    <label class="block text-lg mb-2">Target Audience</label>
+                    <input type="text" name="audience" required 
+                           class="w-full bg-gray-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-purple-600 outline-none"
+                           placeholder="e.g., Young professionals, Families">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-purple-600 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition">
+                    Generate Ad Copies
+                </button>
+            </form>
+            
+            <div class="loading active text-center mt-8" id="loading">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
+                <p class="mt-4 text-gray-400">Generating amazing ads...</p>
+            </div>
+        </div>
+
+        <div id="results" class="bg-gray-800 rounded-2xl p-8" style="display:none;">
+            <h3 class="text-2xl font-bold mb-6">Generated Ad Copies</h3>
+            <div id="adsContent" class="whitespace-pre-wrap text-gray-300 leading-relaxed"></div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('adForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            loading.classList.add('active');
+            results.style.display = 'none';
+            
+            try {
+                const response = await fetch('/generate-ads', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                document.getElementById('adsContent').textContent = data.ads;
+                loading.classList.remove('active');
+                results.style.display = 'block';
+                results.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                alert('Error generating ads. Please try again.');
+                loading.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

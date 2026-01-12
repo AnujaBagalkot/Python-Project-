@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kunal - AI Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .hover-scale { transition: transform 0.3s ease; }
+        .hover-scale:hover { transform: translateY(-10px); }
+        .animate-fade-in { animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    
+    <!-- Hero Section -->
+    <div class="gradient-bg min-h-screen flex items-center justify-center px-4">
+        <div class="text-center animate-fade-in">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6">Kunal</h1>
+            <p class="text-2xl md:text-3xl mb-8 text-gray-200">AI Engineer & Product Builder</p>
+            <p class="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-gray-300">
+                Building production-ready AI solutions for real-world business problems
+            </p>
+            <div class="flex gap-6 justify-center">
+                <a href="#projects" class="bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition">
+                    View Projects
+                </a>
+                <a href="https://github.com/kunuja1709" target="_blank" class="glass px-8 py-4 rounded-full font-semibold hover:bg-white hover:bg-opacity-20 transition">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div id="projects" class="bg-gray-900 py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-5xl font-bold text-center mb-16">AI Projects</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="bg-gray-800 rounded-2xl p-8 hover-scale">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-3xl font-bold mb-4">Ad Copy Generator</h3>
+                    <p class="text-gray-400 mb-6">AI-powered advertising copy generator with quality scoring and reach estimation. Generates targeted ads using LLMs.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-purple-600 px-3 py-1 rounded-full text-sm">LLMs</span>
+                        <span class="bg-purple-600 px-3 py-1 rounded-full text-sm">Groq API</span>
+                        <span class="bg-purple-600 px-3 py-1 rounded-full text-sm">Python</span>
+                    </div>
+                    <a href="/ad-generator" class="inline-block bg-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        Try Live Demo →
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-gray-800 rounded-2xl p-8 hover-scale">
+                    <div class="text-5xl mb-4">📍</div>
+                    <h3 class="text-3xl font-bold mb-4">Location Intelligence</h3>
+                    <p class="text-gray-400 mb-6">AI agent that analyzes business locations, finds competitors, and generates marketing strategies based on market data.</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-blue-600 px-3 py-1 rounded-full text-sm">AI Agents</span>
+                        <span class="bg-blue-600 px-3 py-1 rounded-full text-sm">APIs</span>
+                        <span class="bg-blue-600 px-3 py-1 rounded-full text-sm">Python</span>
+                    </div>
+                    <a href="/location-intel" class="inline-block bg-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Try Live Demo →
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="bg-gray-800 py-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-5xl font-bold mb-16">Tech Stack</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="glass p-6 rounded-xl">
+                    <i class="fab fa-python text-5xl mb-4 text-blue-400"></i>
+                    <p class="font-semibold">Python</p>
+                </div>
+                <div class="glass p-6 rounded-xl">
+                    <i class="fas fa-brain text-5xl mb-4 text-purple-400"></i>
+                    <p class="font-semibold">LLMs</p>
+                </div>
+                <div class="glass p-6 rounded-xl">
+                    <i class="fas fa-database text-5xl mb-4 text-green-400"></i>
+                    <p class="font-semibold">Data Pipelines</p>
+                </div>
+                <div class="glass p-6 rounded-xl">
+                    <i class="fas fa-rocket text-5xl mb-4 text-red-400"></i>
+                    <p class="font-semibold">FastAPI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="gradient-bg py-12 text-center">
+        <p class="text-xl mb-4">Let's build something amazing together</p>
+        <div class="flex gap-6 justify-center text-2xl">
+            <a href="https://github.com/kunuja1709" class="hover:text-gray-300 transition"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/kunuja1709" class="hover:text-gray-300 transition"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p class="mt-8 text-gray-300">© 2025 Kunal. Built with Python & FastAPI</p>
+    </div>
+
+</body>
+</html>

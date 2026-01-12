@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    
+    <nav class="gradient-bg p-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">← Back</a>
+            <h1 class="text-2xl font-bold">Location Intelligence</h1>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto p-8">
+        
+        <div class="bg-gray-800 rounded-2xl p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Analyze Business Location</h2>
+            
+            <form id="locationForm" class="space-y-6">
+                <div>
+                    <label class="block text-lg mb-2">Location</label>
+                    <input type="text" name="location" required 
+                           class="w-full bg-gray-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 outline-none"
+                           placeholder="e.g., Pune, Andheri Mumbai">
+                </div>
+                
+                <div>
+                    <label class="block text-lg mb-2">Business Type</label>
+                    <input type="text" name="business_type" required 
+                           class="w-full bg-gray-700 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600 outline-none"
+                           placeholder="e.g., restaurant, cafe, gym">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-blue-600 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+                    Analyze Location
+                </button>
+            </form>
+            
+            <div class="hidden text-center mt-8" id="loading">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+                <p class="mt-4 text-gray-400">Analyzing market data...</p>
+            </div>
+        </div>
+
+        <div id="results" class="space-y-6" style="display:none;">
+            
+            <div class="bg-gray-800 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4">Competition Overview</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-700 p-6 rounded-xl">
+                        <p class="text-gray-400 mb-2">Total Competitors</p>
+                        <p class="text-4xl font-bold" id="compCount">-</p>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-xl">
+                        <p class="text-gray-400 mb-2">Density (per km²)</p>
+                        <p class="text-4xl font-bold" id="density">-</p>
+                    </div>
+                </div>
+                <div class="mt-6" id="compList"></div>
+            </div>
+
+            <div class="bg-gray-800 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-4">Market Analysis</h3>
+                <p class="text-gray-300 leading-relaxed whitespace-pre-wrap" id="analysis"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('locationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            loading.classList.remove('hidden');
+            results.style.display = 'none';
+            
+            try {
+                const response = await fetch('/analyze-location', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    loading.classList.add('hidden');
+                    return;
+                }
+                
+                document.getElementById('compCount').textContent = data.competitors;
+                document.getElementById('density').textContent = data.density;
+                document.getElementById('analysis').textContent = data.analysis;
+                
+                let compHTML = '<h4 class="font-semibold mb-2 mt-4">Nearby Competitors:</h4><ul class="list-disc list-inside text-gray-400">';
+                data.competitor_list.forEach(comp => {
+                    compHTML += `<li>${comp}</li>`;
+                });
+                compHTML += '</ul>';
+                document.getElementById('compList').innerHTML = compHTML;
+                
+                loading.classList.add('hidden');
+                results.style.display = 'block';
+                results.scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                alert('Error analyzing location. Please try again.');
+                loading.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>
