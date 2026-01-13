@@ -2,7 +2,7 @@
 
 Building production-ready AI solutions for real-world business problems.
 
-**Live Portfolio**: [kunuja-ai-portfolio.onrender.com](https://kunuja-ai-portfolio.onrender.com)
+
 
 ## Projects
 
