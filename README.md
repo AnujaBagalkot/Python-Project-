@@ -29,5 +29,3 @@ Analyzes business locations, competitor density, and generates marketing strateg
 Python | LLMs (Groq) | FastAPI | APIs | Git | Prompt Engineering
 
 ---
-
-**Portfolio Website**: https://kunuja-ai-portfolio.onrender.com
